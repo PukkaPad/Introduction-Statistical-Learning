@@ -39,6 +39,7 @@ The disadvantages of parametric approach is: functional form used to estimate *f
 4 | 2.23
 5 | 1.41
 6 | 1.73
+
 (b) Green. Obs 5 is closest neighbour.
 (c) Red. Obs 1 and Obs 3.
 (d) Smalls. As *k* grows method becomes less flexible and produces decision boundary that is close to linear. Small *k* is flexible for non-linear decision boundary.
