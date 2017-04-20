@@ -129,3 +129,105 @@ pairs(Auto)
 # more cylinders = less mpg
 # more displacement, horsepower and weight = less mpg
 # more acceleration = more mpg
+
+# Exercise 10
+# a
+library(MASS)
+Boston
+?Boston
+# how many rows, columns? What rows ans columns represent?
+dim(Boston) # or nrow(Boston); ncol(Boston)
+# 506 rows and 14 columns. Rows represent the observations (506 observations, suburbs) and columns represent the variables (14 variables)
+
+# b
+# scatterplot of predictors (columns) and describe findings
+pairs(Boston)
+# crim grows with increase of nox, age, ptratio
+# zn grows with increase of rm, dis, medv
+# indus grows with increase of ratio and ptrario
+# now grows with increase of age, ptratio, lstat
+
+pairs (~ crim + rm + ptratio + dis + rad, Boston)
+# higher pupil-teacher ratio seems to relates to higher crime. There is more crime closer to the employment centres.
+pairs (~ indus + tax + lstat + dis , Boston)
+# There are more non-retail business nearer the Boston eployment centers, where property tax is higher
+
+# c
+# Predictors associated with per capita crime rate?
+plot(Boston$ptratio, Boston$crim)
+# higher pupil-teacher ratio = more crime
+plot(Boston$age, Boston$crim)
+# older homes = more crime
+plot(Boston$dis, Boston$crim)
+# closer to employment centres = more crime
+plot(Boston$rad, Boston$crim)
+# more acess to radial highways = more crime
+plot(Boston$tax, Boston$crim)
+# higher property-tax = more crime
+plot(Boston$medv, Boston$crim)
+# lower the median value of owner-occupied homes = more crime
+
+# d
+# Suburbs with high crime rate?
+hist(Boston$crim) # need to eliminate min values
+hist(Boston$crm[Boston$crim>2], breaks = 30)
+# per capita crime rate by town is low for most of the towns (see frequency). However some towns deal with very high crime rate per capita.
+
+# Tax rates?
+hist(Boston$tax)
+hist(Boston$tax, breaks = 25)
+# Only a few properties-tax rate is above 700. There is a large number of property-tax rate between 600 and 700, as well a large number of property-tax rate below 500
+
+# Pupil-teacher ratios?
+hist(Boston$ptratio)
+# pupil-teacher ratio is high. 
+
+# e
+# How many suburbs bound the river
+river_bound <- subset(Boston, chas ==1)
+dim(river_bound)
+# 35 suburbs
+
+# f
+# Median pupil-teacher ratio
+summary(Boston)
+# 19.05
+
+# g
+# Suburb lowest median value of owner occupied homes?
+min_medv <- subset(Boston, medv == min(medv))
+min_medv
+#       crim zn indus chas   nox    rm age    dis rad tax ptratio  black lstat medv
+#399 38.3518  0  18.1    0 0.693 5.453 100 1.4896  24 666    20.2 396.90 30.59    5
+#406 67.9208  0  18.1    0 0.693 5.683 100 1.4254  24 666    20.2 384.97 22.98    5
+
+# crime per capita for these 2 suburs is higher than the third quartile, which means that it is within the 25% higher crime per capita in Boston.
+# zn is the same as the minimum zn for the whole Boston data
+# industry business per town is in the upper half of the data set.
+# chas; these two towns does not bound Charles River
+# nitrogen oxides concentration is very high, above the 3rd quartile.
+# number of rooms per dwelling is within the lower half of the data set, 75% of rm in the Bosotn data set lie above the value shown for these 2 towns
+# age at max
+# dis lies bellow the 1st quartile
+# high accesibility to radial highways, at maximum
+# tax is at third quartile
+# pupil-teacher ratio at third quartile
+# black above first quartile
+# lower stat above the 3rd quartile
+# medin value of owner-occupied home at minimum
+
+# crime is very high, air polluted and they need more teachers at schools.
+
+# h
+# suburbs with more than 7 rooms per dwelling
+seven_rooms <- subset(Boston, rm > 7)
+dim(seven_rooms)
+# 64 suburbs
+
+# suburbs with more than 8 rooms per dwelling
+eight_rooms <- subset(Boston, rm > 8)
+dim(eight_rooms)
+# 13 suburbs
+summary(eight_rooms)
+
+# better place to live than previous
