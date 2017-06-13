@@ -1,10 +1,10 @@
 # Applied
 
-setwd("../Chapt2")
+setwd("./Chapt2")
 
 # Exercise 8
 # a & b
-college = read.csv("../DataSets/College.csv")
+college = read.csv("../../../DataSets/College.csv")
 #fix(college)
 rownames(college) = college[,1] #this creates row.names. R will not perform calculations on this row
 #fix(college)
@@ -81,7 +81,7 @@ plot(college$Room.Board, college$Expend)
 # however, the higher the institutional spending per student. the higher the room and board costs
 
 # Exercise 9
-Auto = read.table("../DataSets/Auto.data", header=T, na.strings="?")
+Auto = read.table("../../../DataSets/Auto.data", header=T, na.strings="?")
 Auto = na.omit(Auto)
 #fix(Auto)
 

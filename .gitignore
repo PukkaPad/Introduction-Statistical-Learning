@@ -1,3 +1,4 @@
 .Rapp.history
 *~
 /tests
+.ipynb_checkpoints
