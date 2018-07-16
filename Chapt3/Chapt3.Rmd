@@ -1,0 +1,88 @@
+---
+title: "Chapter 3 - Linear Regression"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This notebook follows the text and examples in ISL book.
+
+# 3.1 - Simple Linear Regression
+
+We are using `Advertising data` 
+```{r, echo = FALSE}
+csv = read.csv("../../../DataSets/Advertising.csv")
+```
+
+```{r}
+names(csv)
+#fix(csv)
+```
+
+Let's fit a linear regression model 
+
+```{r}
+lm.fit = lm (Sales~TV, data = csv)
+# Estimating coefficients
+lm.fit
+summary(lm.fit)
+```
+
+### Fit the regression of sales as a function of TV
+
+```{r}
+plot(csv$TV, csv$Sales, col = "red", pch = 20, xlab = "TV", ylab = "Sales")
+abline(lm.fit)
+```
+
+### 95% confidence interval for intercept and slope:
+
+```{r}
+confint(lm.fit)
+
+```
+
+So without advertising, sales will be on average between `r round(confint(lm.fit)[1], 2)` and `r round(confint(lm.fit)[3], 2)` units.
+
+For each $1000 increase in TV advertising,the increase of sales will be, on average `r round(confint(lm.fit)[2] * 1000
+, 2)` and `r round(confint(lm.fit)[4] * 1000, 2)` units.
+
+```{r}
+cor(csv$Sales,csv$TV)
+```
+
+### Hypothesis test
+
+*null hypothesis*
+H_0: There's no relationship between X and Y
+
+*alternative hypothesis*
+H_a: There's some relationship between X and Y
+
+
+```{r, echo = FALSE, eval = FALSE}
+names(summary(lm.fit))
+```
+
+```{r}
+summary(lm.fit)[["coefficients"]][, "t value"]
+
+summary(lm.fit)$coefficients[, 4]
+
+```
+
+t-values are large because the coefficients are large.
+
+p-value is less than 5%, so we can reject the *null hypothesis*
+
+### Accuracy of the model: RSE, R^2^
+
+R^2^
+
+### Plot properties of the fit
+
+```{r}
+plot(lm.fit)
+```

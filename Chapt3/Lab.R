@@ -15,7 +15,7 @@ names(Boston)
 #lm(y~x, data)
 lm.fit = lm(medv~lstat, data=Boston)
 attach(Boston)
-lm.fir = lm(medv~lstat)
+lm.fit = lm(medv~lstat)
 lm.fit
 #lm.fit gives us the coefficients. 
 summary(lm.fit)
@@ -39,3 +39,23 @@ abline(lm.fit, lwd=3, col='red')
 par(mfrow=c(2,2))
 plot(lm.fit)
 # It's also possible to generate residuals from linear regression 'residuals()' and studentized residuals 'rstudent()'
+plot(predict(lm.fit), residuals(lm.fit))
+plot(predict(lm.fit), rstudent(lm.fit))
+# remember, if the points ina residual plot are randomly dispersed around the x axis, a linear regression model is appropriate for the data; otherwise, a non-linear model is more appropriate.
+# the residual plots showed some evidence of non-linearity
+# To measure how far away the independent variable of an observation are from those of the other observations, leverage statistics is used
+# in R it is computed using 'hatvalues()' function
+# The rule of thumb is to examine any observations 2-3 times greater than the average hat value.
+plot(hatvalues(lm.fit))
+# to find out which obs has the largest leverage statistics:
+which.max(hatvalues(lm.fit))
+
+## Multiple Linear Regression
+#lm(y~x1+x2+x3)
+lm.fit=lm(medv~lstat+age, data=Boston)
+#output regression coefficients
+summary(lm.fit)
+# to do the multiple linear regression using all predictors
+lm.fit=lm(medv~., data = Boston)
+summary(lm.fit)
+# to access individual components of the summary
